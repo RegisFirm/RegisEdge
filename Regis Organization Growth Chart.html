@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regis Staffing Group: Growth & Industry Insights</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F0F4F8; 
+        }
+       .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px; 
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px; 
+            max-height: 400px; 
+        }
+        @media (min-width: 768px) { 
+           .chart-container {
+                height: 350px;
+            }
+        }
+        @media (min-width: 1024px) { 
+           .chart-container {
+                height: 400px;
+            }
+        }
+
+       .kpi-card {
+            background-color: white;
+            border-radius: 0.75rem; 
+            padding: 1.5rem; 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+       .kpi-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+       .kpi-value {
+            font-size: 2.25rem; 
+            font-weight: 800;
+            color: #073B4C; 
+        }
+       .kpi-label {
+            font-size: 0.875rem; 
+            color: #4A5568; 
+            margin-top: 0.5rem; 
+        }
+       .section-title {
+            font-size: 1.875rem; 
+            font-weight: 700;
+            color: #073B4C; 
+            margin-bottom: 1rem; 
+            text-align: center;
+        }
+       .section-intro {
+            font-size: 1rem; 
+            color: #2D3748; 
+            line-height: 1.6;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 2rem; 
+            text-align: center;
+        }
+       .chart-title {
+            font-size: 1.125rem; 
+            font-weight: 600;
+            color: #118AB2; 
+            text-align: center;
+            margin-bottom: 0.5rem; 
+        }
+       .chart-context {
+            font-size: 0.875rem; 
+            color: #4A5568; 
+            text-align: center;
+            margin-top: 1rem; 
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+       .html-diagram-item {
+            background-color: #E0F2FE; 
+            border: 2px solid #118AB2; 
+            color: #073B4C; 
+            padding: 0.75rem; 
+            border-radius: 0.5rem; 
+            text-align: center;
+            font-weight: 500;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+       .icon-list-item {
+            display: flex;
+            align-items: center;
+            background-color: #ffffff;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            margin-bottom: 0.75rem;
+        }
+       .icon-list-item .icon {
+            font-size: 1.5rem;
+            margin-right: 0.75rem;
+            color: #FF6B6B; 
+        }
+       .icon-list-item .text {
+            color: #073B4C;
+            font-weight: 500;
+        }
+        
+       .bg-coral { background-color: #FF6B6B; }
+       .text-coral { color: #FF6B6B; }
+       .border-coral { border-color: #FF6B6B; }
+
+       .bg-sunglow { background-color: #FFD166; }
+       .text-sunglow { color: #FFD166; }
+       .border-sunglow { border-color: #FFD166; }
+
+       .bg-caribbean-green { background-color: #06D6A0; }
+       .text-caribbean-green { color: #06D6A0; }
+       .border-caribbean-green { border-color: #06D6A0; }
+
+       .bg-blue-ncs { background-color: #118AB2; }
+       .text-blue-ncs { color: #118AB2; }
+       .border-blue-ncs { border-color: #118AB2; }
+
+       .bg-midnight-blue { background-color: #073B4C; }
+       .text-midnight-blue { color: #073B4C; }
+       .border-midnight-blue { border-color: #073B4C; }
+
+        .org-chart-node {
+            background-color: #ffffff;
+            border: 1px solid #118AB2;
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            text-align: center;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #073B4C;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            margin: 0.5rem;
+            min-width: 120px;
+        }
+        .org-chart-title {
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+        .org-chart-subtitle {
+            font-size: 0.75rem;
+            color: #4A5568;
+        }
+        .org-chart-line {
+            background-color: #118AB2;
+            width: 2px;
+        }
+        .org-chart-h-line {
+            height: 2px;
+            background-color: #118AB2;
+        }
+        .org-chart-v-line {
+            width: 2px;
+            background-color: #118AB2;
+        }
+        .org-chart-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 2rem;
+            overflow-x: auto; 
+            padding-bottom: 1rem; 
+        }
+        .org-level {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; 
+            flex-wrap: wrap;
+            position: relative;
+            width: 100%;
+        }
+        .org-branch {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 1rem; 
+            position: relative;
+        }
+        .org-connector-v { 
+            width: 2px;
+            background-color: #118AB2;
+            height: 20px; 
+        }
+        .org-level-connector-line {
+            position: relative;
+            width: 100%;
+            height: 2px;
+            background-color: #118AB2;
+            margin-top: 20px; 
+            margin-bottom: 20px; 
+        }
+        .org-level-horizontal-line .vertical-drop {
+            position: absolute;
+            width: 2px;
+            height: 20px;
+            background-color: #118AB2;
+            top: 100%;
+            transform: translateX(-50%);
+        }
+        .org-level-horizontal-line {
+            position: relative;
+            width: 100%;
+            height: 2px;
+            background-color: #118AB2;
+            margin-top: 20px; 
+            margin-bottom: 20px; 
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .org-level-horizontal-line .vertical-drop-from-parent {
+            position: absolute;
+            width: 2px;
+            height: 20px;
+            background-color: #118AB2;
+            top: -20px; 
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .org-level-horizontal-line .vertical-drop-to-child {
+            position: absolute;
+            width: 2px;
+            height: 20px;
+            background-color: #118AB2;
+            bottom: -20px; 
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .org-chart-group {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            position: relative;
+        }
+        .org-chart-group .org-connector-v {
+            height: 20px;
+            width: 2px;
+            background-color: #118AB2;
+        }
+        .org-chart-group .org-connector-h {
+            height: 2px;
+            background-color: #118AB2;
+            width: calc(100% - 2rem); 
+            position: absolute;
+            top: 0;
+            transform: translateY(-10px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Visualization & Content Choices:
+        - Regis At a Glance: KPIs (Single Big Number) - Goal: Inform. Justification: Quick, impactful summary. Method: HTML/CSS.
+        - Current Operational Strength:
+            - Revenue per Internal Employee & Temp per AM: KPIs (Single Big Number) - Goal: Inform. Justification: Highlight efficiency. Method: HTML/CSS.
+            - Current Sales & Client Acquisition Model: List with icons - Goal: Inform. Justification: Clear, concise summary of current state. Method: HTML/CSS, Unicode.
+            - Current Organizational Chart: Org Chart Illustration - Goal: Organize. Justification: Visual clarity of current hierarchy. Method: HTML/CSS.
+        - The Staffing Industry Landscape:
+            - Global Hospitality Staffing Market Growth: Line Chart - Goal: Change. Justification: Show trend over time. Method: Chart.js/Canvas.
+            - Growth in Specialized Staffing Sectors: Horizontal Bar Chart - Goal: Compare. Justification: Compare CAGRs across sectors. Method: Chart.js/Canvas.
+            - Recruitment Automation KPI: KPI (Single Big Number) - Goal: Inform. Justification: Highlight key industry trend. Method: HTML/CSS.
+        - Path to $25 Million Revenue:
+            - $25M Target & Projected Temps: KPIs (Single Big Number) - Goal: Inform. Justification: Set clear targets. Method: HTML/CSS.
+            - Projected Internal Staff Growth ($17M vs $25M): Bar Chart - Goal: Compare. Justification: Show growth in internal staff. Method: Chart.js/Canvas.
+            - Key New Roles for $25M Growth: List with icons - Goal: Inform. Justification: Highlight specific new positions. Method: HTML/CSS, Unicode.
+            - Projected Organizational Chart ($25M): Org Chart Illustration - Goal: Organize. Justification: Visual blueprint for immediate growth. Method: HTML/CSS.
+        - Vision: $50 Million Revenue by 2028:
+            - $50M Target & Projected Temps: KPIs (Single Big Number) - Goal: Inform. Justification: Set clear long-term targets. Method: HTML/CSS.
+            - Total Projected Internal Staff Evolution: Bar Chart - Goal: Change/Compare. Justification: Show staffing progression. Method: Chart.js/Canvas.
+            - Key Leadership & Specialized Roles for $50M: List with icons - Goal: Inform. Justification: Highlight strategic long-term hires. Method: HTML/CSS, Unicode.
+            - Projected Organizational Chart ($50M): Org Chart Illustration - Goal: Organize. Justification: Visual blueprint for long-term growth. Method: HTML/CSS.
+        - Strategic Enablers:
+            - Technology Adoption Focus: List with icons - Goal: Inform. Justification: Highlight key strategic pillars. Method: HTML/CSS, Unicode.
+            - Strengthening the Compliance Shield: List with icons - Goal: Inform. Justification: Highlight key strategic pillars. Method: HTML/CSS, Unicode.
+    -->
+    <header class="bg-midnight-blue text-white py-12 px-4 text-center">
+        <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Regis Staffing Group</h1>
+        <p class="text-xl md:text-2xl text-sunglow mb-6">Powering Hospitality Excellence: Growth & Industry Insights</p>
+        <p class="text-lg max-w-3xl mx-auto text-gray-300">
+            Founded in 2017, Regis Staffing Group has rapidly become a leader in Los Angeles' luxury hospitality staffing. The last three years have been dedicated to operational, system, and infrastructure fine-tuning, positioning the company to be primed for significant growth. This infographic explores our current strengths, industry trends, and strategic vision for future expansion.
+        </p>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+
+        <section class="mb-16">
+            <h2 class="section-title">Regis At a Glance: Current Achievements</h2>
+            <p class="section-intro">
+                Regis Staffing Group operates with a lean internal team, managing a significant temporary workforce and achieving remarkable revenue, underscoring our efficiency and unique data-driven approach.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="kpi-card">
+                    <div class="kpi-value">$17M</div>
+                    <div class="kpi-label">Annual Revenue (Last Fiscal Year)</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-value">~300</div>
+                    <div class="kpi-label">Temporary Employees ("The Regis Tribe")</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-value">13</div>
+                    <div class="kpi-label">Dedicated Internal Staff Members</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-value">30</div>
+                    <div class="kpi-label">Current Hotel Clients</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-16">
+            <h2 class="section-title">Current Operational Strength & Organizational Structure</h2>
+            <p class="section-intro">
+                At $17 million in revenue, Regis demonstrates exceptional operational leverage. Our lean internal team effectively supports a large temporary workforce, driven by our proprietary 5-Star System and robust on-field management. Each Account Manager currently oversees approximately 75-85 temporary employees, aligning with optimal capacity. Having focused on fine-tuning our operational systems and infrastructure over the last three years, we are now operationally primed for significant expansion.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                <div class="bg-white rounded-lg shadow-md p-6 flex flex-col justify-center h-full">
+                    <div class="kpi-card mb-6">
+                        <div class="kpi-value">~$1.3M</div>
+                        <div class="kpi-label">Revenue per Internal Employee</div>
+                        <p class="text-xs text-gray-500 mt-2">Significantly higher than typical hospitality benchmarks, showcasing exceptional operational leverage.</p>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-value">75-85</div>
+                        <div class="kpi-label">Temporary Employees per Account Manager</div>
+                        <p class="text-xs text-gray-500 mt-2">Current ratio of ~75 temp employees per AM (300/4) is within optimal capacity.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md p-6 flex flex-col justify-center h-full">
+                    <h3 class="chart-title">Current Sales & Client Acquisition Model</h3>
+                    <p class="chart-context mb-6">Currently, all client acquisition is driven by organic methods. This operational readiness, combined with our strong reputation, presents a significant opportunity for future formalized sales and marketing efforts to accelerate growth.</p>
+                    <div class="space-y-3">
+                        <div class="icon-list-item">
+                            <span class="icon">🚪</span>
+                            <span class="text">Random Cold Door-to-Door Efforts</span>
+                        </div>
+                        <div class="icon-list-item">
+                            <span class="icon">🤝</span>
+                            <span class="text">Referrals from Existing Clients</span>
+                        </div>
+                        <div class="icon-list-item">
+                            <span class="icon">🚫</span>
+                            <span class="text">No Dedicated Sales/Marketing Departments</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md:col-span-2 bg-white rounded-lg shadow-md p-6 mt-8">
+                    <h3 class="chart-title">Regis Staffing Group: Current Organizational Chart ($17M Revenue)</h3>
+                    <p class="chart-context mb-6">A visual representation of Regis Staffing Group's current internal team and their hierarchical structure.</p>
+                    <div class="org-chart-container">
+                        <div class="org-level">
+                            <div class="org-chart-node">
+                                <div class="org-chart-title">Nicholas Sanchez</div>
+                                <div class="org-chart-subtitle">CEO</div>
+                            </div>
+                        </div>
+                        <div class="org-connector-v"></div>
+                        <div class="org-level">
+                            <div class="org-branch">
+                                <div class="org-chart-node">
+                                    <div class="org-chart-title">Laura Mason</div>
+                                    <div class="org-chart-subtitle">Executive Assistant</div>
+                                </div>
+                            </div>
+                            <div class="org-branch">
+                                <div class="org-chart-node">
+                                    <div class="org-chart-title">Patricia Bran</div>
+                                    <div class="org-chart-subtitle">VP, Operations</div>
+                                </div>
+                                <div class="org-connector-v"></div>
+                                <div class="org-level flex-wrap justify-center relative pt-8">
+                                    <div class="absolute top-0 left-0 right-0 h-[2px] bg-blue-ncs" style="transform: translateY(-10px);"></div>
+                                    
+                                    <div class="org-branch flex flex-col items-center mx-2 relative pt-8">
+                                        <div class="absolute top-0 w-[2px] h-8 bg-blue-ncs"></div>
+                                        <div class="org-chart-node">
+                                            <div class="org-chart-title">Jorge Gonzalez</div>
+                                            <div class="org-chart-subtitle">HQ Ops Manager</div>
+                                        </div>
+                                        <div class="org-connector-v"></div>
+                                        <div class="org-level flex-wrap justify-center relative pt-8">
+                                            <div class="absolute top-0 left-0 right-0 h-[2px] bg-blue-ncs" style="transform: translateY(-10px);"></div>
+                                            <div class="org-branch flex flex-col items-center mx-2 relative pt-8">
+                                                <div class="absolute top-0 w-[2px] h-8 bg-blue-ncs"></div>
+                                                <div class="org-chart-node">
+                                                    <div class="org-chart-title">Priscila Martinez</div>
+                                                    <div class="org-chart-subtitle">Receptionist (Admin)</div>
+                                                </div>
+                                            </div>
+                                            <div class="org-branch flex flex-col items-center mx-2 relative pt-8">
+                                                <div class="absolute top-0 w-[2px] h-8 bg-blue-ncs"></div>
+                                                <div class="org-chart-node">
+                                                    <div class="org-chart-title">Felipe Sanchez</div>
+                                                    <div class="org-chart-subtitle">Safety Director</div>
+                                                </div>
+                                                <div class="org-connector-v"></div>
+                                                <div class="org-chart-node">
+                                                    <div class="org-chart-title">Alejandro Padilla</div>
+                                                    <div class="org-chart-subtitle">Safety Officer</div>
+                                                </div>
+                                            </div>
+                                            <div class="org-branch flex flex-col items-center mx-2 relative pt-8">
+                                                <div class="absolute top-0 w-[2px] h-8 bg-blue-ncs"></div>
+                                                <div class="org-chart-node">
+                                                    <div class="org-chart-title">Kassandra Flores</div>
+                                                    <div class="org-chart-subtitle">Payroll Manager</div>
+                                                </div>
+                                            </div>
+                                            <div class="org-branch flex flex-col items-center mx-2 relative pt-8">
+                                                <div class="absolute top-0 w-[2px] h-8 bg-blue-ncs"></div>
+                                                <div class="org-chart-node">
+                                                    <div class="org-chart-title">Moses Avalos</div>
+                                                    <div class="org-chart-subtitle">Customer Success Manager</div>
+                                                </div>
+                                            </div>
+                                            <div class="org-branch flex flex-col items-center mx-2 relative pt-8">
+                                                <div class="absolute top-0 w-[2px] h-8 bg-blue-ncs"></div>
+                                                <div class="org-chart-node">
+                                                    <div class="org-chart-title">Aaron Velasquez</div>
+                                                    <div class="org-chart-subtitle">Recruiting Manager</div>
+                                                </div>
+                                                <div class="org-connector-v"></div>
+                                                <div class="org-chart-node">
+                                                    <div class="org-chart-title">Denise Gonzales</div>
+                                                    <div class="org-chart-subtitle">Applicants Manager</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="org-branch flex flex-col items-center mx-2 relative pt-8">
+                                        <div class="absolute top-0 w-[2px] h-8 bg-blue-ncs"></div>
+                                        <div class="org-chart-node">
+                                            <div class="org-chart-title">Account Managers</div>
+                                            <div class="org-chart-subtitle">(Mario Giron, Cinthia Ramirez, Gonzalo Lorenzo, Maricruz Ramirez)</div>
+                                            <div class="org-chart-subtitle text-xs text-gray-500 mt-1">(Includes territories managed by HQ: San Francisco, Torrance)</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="chart-context mt-6">This chart highlights the lean, hierarchical structure with key operational functions centralized at HQ, supporting the Account Managers who lead on-field branch operations. The VP, Operations currently has a broad span of control, including oversight of some Account Manager territories.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-16">
+            <h2 class="section-title">The Staffing Industry Landscape</h2>
+            <p class="section-intro">
+                The global staffing industry is experiencing robust growth and transformation, driven by specialization, technological advancements, and evolving workforce demands. Regis is well-positioned to capitalize on these trends.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="chart-title">Global Hospitality Staffing Market Growth</h3>
+                    <div class="chart-container mx-auto">
+                        <canvas id="globalMarketChart"></canvas>
+                    </div>
+                    <p class="chart-context">The global hospitality staffing market is projected to grow from $971.3 billion in 2022 to $1.88 trillion by 2032, exhibiting a compound annual growth rate (CAGR) of 6.9%.</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="chart-title">Growth in Specialized Staffing Sectors (CAGR)</h3>
+                    <div class="chart-container mx-auto" style="height: 380px; max-height:400px;">
+                        <canvas id="specializedSectorsChart"></canvas>
+                    </div>
+                    <p class="chart-context">High-growth areas like Event, Hotel, and Janitorial staffing demonstrate strong demand for specialized talent, trends Regis can strategically leverage.</p>
+                </div>
+                 <div class="md:col-span-2 kpi-card mt-8">
+                    <div class="kpi-value">37%</div>
+                    <div class="kpi-label">of Traditional Recruitment Activities Projected to be Automated by 2028</div>
+                    <p class="text-sm text-gray-600 mt-2">AI and automation are fundamentally reshaping recruitment, enhancing efficiency and candidate quality.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-16">
+            <h2 class="section-title">Path to $25 Million Revenue</h2>
+            <p class="section-intro">
+                Achieving $25 million in revenue requires strategic expansion of our temporary workforce and targeted growth in our internal team, supported by enhanced operational structures. This includes the crucial introduction of dedicated sales functions to proactively drive client acquisition.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                <div class="kpi-card">
+                    <div class="kpi-value">$25M</div>
+                    <div class="kpi-label">Target Annual Revenue</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-value">~440</div>
+                    <div class="kpi-label">Projected Temporary Employees (at 75-85/AM capacity)</div>
+                </div>
+
+                <div class="md:col-span-2 bg-white rounded-lg shadow-md p-6 mt-8">
+                    <h3 class="chart-title">Projected Internal Staff Growth ($17M vs $25M)</h3>
+                    <div class="chart-container mx-auto">
+                        <canvas id="staffGrowth25MChart"></canvas>
+                    </div>
+                    <p class="chart-context">Strategic hires will expand our internal team from 13 to approximately 23, focusing on leadership, operational support, compliance, and new sales functions to manage growth effectively.</p>
+                </div>
+
+                <div class="md:col-span-2 bg-white rounded-lg shadow-md p-6 mt-8">
+                    <h3 class="chart-title">Key New Roles for $25M Growth</h3>
+                    <p class="chart-context mb-6">To support this expansion, Regis will strategically add key roles to bolster management, operations, and specialized functions.</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div class="html-diagram-item">🎯<br>Sales Manager</div>
+                        <div class="html-diagram-item">🤝<br>Business Development Manager(s)</div>
+                        <div class="html-diagram-item">👔<br>Regional Branch Manager</div>
+                        <div class="html-diagram-item">👥<br>Additional Account Managers (2)</div>
+                        <div class="html-diagram-item">✍️<br>Recruiting Coordinator/Specialist</div>
+                        <div class="html-diagram-item">📊<br>Payroll Administrator/Specialist</div>
+                        <div class="html-diagram-item">📞<br>Customer Success Coordinator</div>
+                        <div class="html-diagram-item">📜<br>Compliance Specialist</div>
+                    </div>
+                </div>
+
+                <div class="md:col-span-2 bg-white rounded-lg shadow-md p-6 mt-8">
+                    <h3 class="chart-title">Regis Staffing Group: Projected Organizational Chart ($25M Revenue)</h3>
+                    <p class="chart-context mb-6">This chart illustrates the organizational structure required to support $25 million in revenue, introducing a dedicated sales function and a Regional Branch Manager to oversee Account Managers.</p>
+                    <div class="org-chart-container">
+                        <div class="org-level">
+                            <div class="org-chart-node">
+                                <div class="org-chart-title">Nicholas Sanchez</div>
+                                <div class="org-chart-subtitle">CEO</div>
+                            </div>
+                        </div>
+                        <div class="org-connector-v"></div>
+                        <div class="org-level">
+                            <div class="org-branch">
+                                <div class="org-chart-node">
+                                    <div class="org-chart-title">Laura Mason</div>
+                                    <div class="org-chart-subtitle">Executive Assistant</div>
+                                </div>
+                            </div>
+                            <div class="org-branch">
+                                <div class="org-chart-node">
+                                    <div class="org-chart-title">Patricia Bran</div>
+                                    <div class="org-chart-subtitle">VP, Operations</div>
+                                </div>
+                                <div class="org-connector-v"></div>
+                                <div class="org-level flex-wrap justify-center relative pt-8">
+                                    <div class="absolute top-0 left-0 right-0 h-[2px] bg-blue-ncs" style="transform: translateY(-10px);"></div>
+                                    
+                                    <div class="org-branch flex flex-col items-center mx-2 relative pt-8">
+                                        <div class="absolute top-0 w-[2px] h-8 bg-blue-ncs"></div>
+                                        <div class="org-chart-node">
+                                            <div class="org-chart-title">Sales Manager</div>
+                                            <div class="org-chart-subtitle">Sales (New)</div>
+                                        </div>
+                                        <div class="org-connector-v"></div>
+                                        <div class="org-level flex-wrap justify-center relative pt-8">
+                                            <div class="absolute top-0 left-0 right-0 h-[2px] bg-blue-ncs" style="transform: translateY(-10px);"></div>
+                                            <div class="org-branch flex flex-col items-center mx-2 relative pt-8">
+                                                <div class="absolute top-0 w-[2px] h-8 bg-blue-ncs"></div>
+                                                <div class="org-chart-node">
+                                                    <div class="org-chart-title">Business Development Manager</div>
+                                                    <div class="org-chart-subtitle">Sales (New)</div>
+                                                </div>
+                                            </div>
+                                            <div class="org-branch flex flex-col items-center mx-2 relative pt-8">
+                                                <div class="absolute top-0 w-[2px] h-8 bg-blue-ncs"></div>
+                                                <div class="org-chart-node">
+                                                    <div class="org-chart-title">Business Development Manager</div>
+                                                    <div class="org-chart-subtitle">Sales (New)</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="org-branch flex flex-col items-center mx-2 relative pt-8">
+                                        <div class="absolute top-0 w-[2px] h-8 bg-blue-ncs"></div>
+                                        <div class="org-chart-node">
+                                            <div class="org-chart-title">Regional Branch Manager</div>
+                                            <div class="org-chart-subtitle">Field Operations (New)</div>
+                                        </div>
+                                        <div class="org-connector-v"></div>
+                                        <div class="org-level flex-wrap justify-center relative pt-8">
+                                            <div class="absolute top-0 left-0 right-0 h-[2px] bg-blue-ncs" style="transform: translateY(-10px);"></div>
+                                            <div class="org-branch flex flex-col items-center mx-2 relative pt-8">
+                                                <div class="absolute top-0 w-[2px] h-8 bg-blue-ncs"></div>
+                                                <div class="org-chart-node">
+                                                    <div class="org-chart-title">Account Manager</div>
+                                                    <div class="org-chart-subtitle">(Mario Giron)</div>
+                                                </div>
+                                            </div>
+                                            <div class="org-branch flex flex-col items-center mx-2 relative pt-8">
+                                                <div class="absolute top-0 w-[2px] h-8 bg-blue-ncs"></div>
+                                                <div class="org-chart-node">
+                                                    <div class="org-chart-title">Account Manager</div>
+                                                    <div class="org-chart-subtitle">(Cinthia Ramirez)</div>
+                                                </div>
+                                            </div>
+                                            <div class="org-branch flex flex-col items-center mx-2 relative pt-8">
+                                                <div class="absolute top-0 w-[2px] h-8 bg-blue-ncs"></div>
+                                                <div class="org-chart-node">
+                                                    <div class="org-chart-title">Account Manager</div>
+                                                    <div class="org-chart-subtitle">(Gonzalo Lorenzo)</div>
+                                                </div>
+                                            </div>
+                                            <div class="org-branch flex flex-col items-center mx-2 relative pt-8">
+                                                <div class="absolute top-0 w-[2px] h-8 bg-blue-ncs"></div>
+                                                <div class="org-chart-node">
+                                                    <div class="org-chart-title">Account Manager</div>
+                                                    <div class="org-chart-subtitle">(Maricruz Ramirez)</div>
+                                                </div>
+                                            </div>
+                                            <div class="org-branch flex flex-col items-center mx-2 relative pt-8">
+                                                <div class="absolute top-0 w-[2px] h-8 bg-blue-ncs"></div>
+                                                <div class="org-chart-node">
+                                                    <div class="org-chart-title">Account Manager</div>
+                                                    <div class="org-chart-subtitle">(Torrance - New)</div>
+                                                </div>
+                                            </div>
+                                            <div class="org-branch flex flex-col items-center mx-2 relative pt-8">
+                                                <div class="absolute top-0 w-[2px] h-8 bg-blue-ncs"></div>
+                                                <div class="org-chart-node">
+                                                    <div class="org-chart-title">Account Manager</div>
+                                                    <div class="org-chart-subtitle">(San Francisco - New)</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="org-branch flex flex-col items-center mx-2 relative pt-8">
+                                        <div class="absolute top-0 w-[2px] h-8 bg-blue-ncs"></div>
+                                        <div class="org-chart-node">
+                                            <div class="org-chart-title">Jorge Gonzalez</div>
+                                            <div class="org-chart-subtitle">HQ Ops Manager</div>
+                                        </div>
+                                        <div class="org-connector-v"></div>
+                                        <div class="org-level flex-wrap justify-center relative pt-8">
+                                            <div class="absolute top-0 left-0 right-0 h-[2px] bg-blue-ncs" style="transform: translateY(-10px);"></div>
+                                            <div class="org-branch flex flex-col items-center mx-2 relative pt-8">
+                                                <div class="absolute top-0 w-[2px] h-8 bg-blue-ncs"></div>
+                                                <div class="org-chart-node">
+                                                    <div class="org-chart-title">Priscila Martinez</div>
+                                                    <div class="org-chart-subtitle">Receptionist (Admin)</div>
+                                                </div>
+                                            </div>
+                                            <div class="org-branch flex flex-col items-center mx-2 relative pt-8">
+                                                <div class="absolute top-0 w-[2px] h-8 bg-blue-ncs"></div>
+                                                <div class="org-chart-node">
+                                                    <div class="org-chart-title">Felipe Sanchez</div>
+                                                    <div class="org-chart-subtitle">Safety Director</div>
+                                                </div>
+                                                <div class="org-connector-v"></div>
+                                                <div class="org-chart-node">
+                                                    <div class="org-chart-title">Alejandro Padilla</div>
+                                                    <div class="org-chart-subtitle">Safety Officer</div>
+                                                </div>
+                                                <div class="org-connector-v"></div>
+                                                <div class="org-chart-node">
+                                                    <div class="org-chart-title">Compliance Specialist</div>
+                                                    <div class="org-chart-subtitle">Compliance (New)</div>
+                                                </div>
+                                            </div>
+                                            <div class="org-branch flex flex-col items-center mx-2 relative pt-8">
+                                                <div class="absolute top-0 w-[2px] h-8 bg-blue-ncs"></div>
+                                                <div class="org-chart-node">
+                                                    <div class="org-chart-title">Kassandra Flores</div>
+                                                    <div class="org-chart-subtitle">Payroll Manager</div>
+                                                </div>
+                                                <div class="org-connector-v"></div>
+                                                <div class="org-chart-node">
+                                                    <div class="org-chart-title">Payroll Administrator/Specialist</div>
+                                                    <div class="org-chart-subtitle">Payroll (New)</div>
+                                                </div>
+                                            </div>
+                                            <div class="org-branch flex flex-col items-center mx-2 relative pt-8">
+                                                <div class="absolute top-0 w-[2px] h-8 bg-blue-ncs"></div>
+                                                <div class="org-chart-node">
+                                                    <div class="org-chart-title">Moses Avalos</div>
+                                                    <div class="org-chart-subtitle">Customer Success Manager</div>
+                                                </div>
+                                                <div class="org-connector-v"></div>
+                                                <div class="org-chart-node">
+                                                    <div class="org-chart-title">Customer Success Coordinator</div>
+                                                    <div class="org-chart-subtitle">Customer Success (New)</div>
+                                                </div>
+                                            </div>
+                                            <div class="org-branch flex flex-col items-center mx-2 relative pt-8">
+                                                <div class="absolute top-0 w-[2px] h-8 bg-blue-ncs"></div>
+                                                <div class="org-chart-node">
+                                                    <div class="org-chart-title">Aaron Velasquez</div>
+                                                    <div class="org-chart-subtitle">Recruiting Manager</div>
+                                                </div>
+                                                <div class="org-connector-v"></div>
+                                                <div class="org-chart-node">
+                                                    <div class="org-chart-title">Denise Gonzales</div>
+                                                    <div class="org-chart-subtitle">Applicants Manager</div>
+                                                </div>
+                                                <div class="org-connector-v"></div>
+                                                <div class="org-chart-node">
+                                                    <div class="org-chart-title">Recruiting Coordinator/Specialist</div>
+                                                    <div class="org-chart-subtitle">Recruiting (New)</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="chart-context mt-6">This projected chart for $25M revenue introduces a dedicated Sales Manager and Business Development Managers to drive proactive client acquisition. A new Regional Branch Manager will oversee the expanded team of Account Managers, ensuring optimal span of control and localized support.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-16">
+            <h2 class="section-title">Vision: $50 Million Revenue by 2028</h2>
+            <p class="section-intro">
+                Our long-term vision targets $50 million in revenue by 2028, necessitating further scaling of our workforce, deepening specialization within our internal team, and strengthening our leadership structure. This includes the critical implementation of dedicated Sales & Marketing departments to drive proactive client acquisition and market penetration.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                <div class="kpi-card">
+                    <div class="kpi-value">$50M</div>
+                    <div class="kpi-label">Target Annual Revenue by 2028</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-value">~882</div>
+                    <div class="kpi-label">Projected Temporary Employees (at 75-85/AM capacity)</div>
+                </div>
+                <div class="md:col-span-2 bg-white rounded-lg shadow-md p-6 mt-8">
+                    <h3 class="chart-title">Total Projected Internal Staff Evolution</h3>
+                    <div class="chart-container mx-auto">
+                        <canvas id="staffGrowth50MChart"></canvas>
+                    </div>
+                    <p class="chart-context">The internal team is projected to grow to approximately 41 FTEs to support $50M revenue, including new Sales & Marketing teams, ensuring sustained operational excellence and service quality.</p>
+                </div>
+                 <div class="md:col-span-2 bg-white rounded-lg shadow-md p-6 mt-8">
+                    <h3 class="chart-title">Key Leadership & Specialized Roles for $50M</h3>
+                     <p class="chart-context mb-6">Achieving this milestone will involve adding strategic leadership and further specializing crucial operational and support functions, highlighted by the establishment of new Sales & Marketing departments.</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div class="html-diagram-item">🚀<br>Chief Operating Officer (COO)</div>
+                        <div class="html-diagram-item">📈<br>CMO / VP Sales & Marketing</div>
+                        <div class="html-diagram-item">🎯<br>Sales Managers / BDMs</div>
+                        <div class="html-diagram-item">📣<br>Marketing & Social Media Specialists</div>
+                        <div class="html-diagram-item">🌍<br>Additional Regional Branch Managers</div>
+                        <div class="html-diagram-item">👥<br>Expanded Account Management Team</div>
+                        <div class="html-diagram-item">🛡️<br>Dedicated Compliance Manager & Specialist</div>
+                        <div class="html-diagram-item">⚙️<br>Enhanced Safety Team</div>
+                        <div class="html-diagram-item">📦<br>Administrative Assistant / Office Manager</div>
+                        <div class="html-diagram-item">🤝<br>Scaled Support Functions (Recruiting, Payroll, CS)</div>
+                    </div>
+                </div>
+
+                <div class="md:col-span-2 bg-white rounded-lg shadow-md p-6 mt-8">
+                    <h3 class="chart-title">Regis Staffing Group: Projected Organizational Chart ($50M Revenue by 2028)</h3>
+                    <p class="chart-context mb-6">This chart outlines the comprehensive organizational structure for Regis Staffing Group at $50M revenue, featuring a Chief Operating Officer (COO) to oversee expanded operations, a dedicated Sales & Marketing division, and multiple Regional Branch Managers to manage significant expansion across all functions.</p>
+                    <div class="org-chart-container">
+                        <div class="org-level">
+                            <div class="org-chart-node">
+                                <div class="org-chart-title">Nicholas Sanchez</div>
+                                <div class="org-chart-subtitle">CEO</div>
+                            </div>
+                        </div>
+                        <div class="org-connector-v"></div>
+                        <div class="org-level">
+                            <div class="org-branch">
+                                <div class="org-chart-node">
+                                    <div class="org-chart-title">Laura Mason</div>
+                                    <div class="org-chart-subtitle">Executive Assistant</div>
+                                </div>
+                            </div>
+                            <div class="org-branch">
+                                <div class="org-chart-node">
+                                    <div class="org-chart-title">Chief Operating Officer (COO)</div>
+                                    <div class="org-chart-subtitle">Operations (New)</div>
+                                </div>
+                                <div class="org-connector-v"></div>
+                                <div class="org-level flex-wrap justify-center relative pt-8">
+                                    <div class="absolute top-0 left-0 right-0 h-[2px] bg-blue-ncs" style="transform: translateY(-10px);"></div>
+
+                                    <div class="org-branch flex flex-col items-center mx-2 relative pt-8">
+                                        <div class="absolute top-0 w-[2px] h-8 bg-blue-ncs"></div>
+                                        <div class="org-chart-node">
+                                            <div class="org-chart-title">Patricia Bran</div>
+                                            <div class="org-chart-subtitle">VP, Operations</div>
+                                        </div>
+                                        <div class="org-connector-v"></div>
+                                        <div class="org-level flex-wrap justify-center relative pt-8">
+                                            <div class="absolute top-0 left-0 right-0 h-[2px] bg-blue-ncs" style="transform: translateY(-10px);"></div>
+                                            <div class="org-branch flex flex-col items-center mx-2 relative pt-8">
+                                                <div class="absolute top-0 w-[2px] h-8 bg-blue-ncs"></div>
+                                                <div class="org-chart-node">
+                                                    <div class="org-chart-title">Jorge Gonzalez</div>
+                                                    <div class="org-chart-subtitle">HQ Ops Manager</div>
+                                                </div>
+                                                <div class="org-connector-v"></div>
+                                                <div class="org-chart-node">
+                                                    <div class="org-chart-title">Admin Team</div>
+                                                    <div class="org-chart-subtitle">(Manager + Assistants)</div>
+                                                </div>
+                                            </div>
+                                            <div class="org-branch flex flex-col items-center mx-2 relative pt-8">
+                                                <div class="absolute top-0 w-[2px] h-8 bg-blue-ncs"></div>
+                                                <div class="org-chart-node">
+                                                    <div class="org-chart-title">Safety Team</div>
+                                                    <div class="org-chart-subtitle">(Director + Officers)</div>
+                                                </div>
+                                            </div>
+                                            <div class="org-branch flex flex-col items-center mx-2 relative pt-8">
+                                                <div class="absolute top-0 w-[2px] h-8 bg-blue-ncs"></div>
+                                                <div class="org-chart-node">
+                                                    <div class="org-chart-title">Payroll Team</div>
+                                                    <div class="org-chart-subtitle">(Manager + Specialists)</div>
+                                                </div>
+                                            </div>
+                                            <div class="org-branch flex flex-col items-center mx-2 relative pt-8">
+                                                <div class="absolute top-0 w-[2px] h-8 bg-blue-ncs"></div>
+                                                <div class="org-chart-node">
+                                                    <div class="org-chart-title">Customer Success Team</div>
+                                                    <div class="org-chart-subtitle">(Manager + Coordinators)</div>
+                                                </div>
+                                            </div>
+                                            <div class="org-branch flex flex-col items-center mx-2 relative pt-8">
+                                                <div class="absolute top-0 w-[2px] h-8 bg-blue-ncs"></div>
+                                                <div class="org-chart-node">
+                                                    <div class="org-chart-title">Recruiting Team</div>
+                                                    <div class="org-chart-subtitle">(Manager + Applicants Mgr + Coordinators)</div>
+                                                </div>
+                                            </div>
+                                            <div class="org-branch flex flex-col items-center mx-2 relative pt-8">
+                                                <div class="absolute top-0 w-[2px] h-8 bg-blue-ncs"></div>
+                                                <div class="org-chart-node">
+                                                    <div class="org-chart-title">Compliance Team</div>
+                                                    <div class="org-chart-subtitle">(Manager + Specialist)</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="org-branch flex flex-col items-center mx-2 relative pt-8">
+                                        <div class="absolute top-0 w-[2px] h-8 bg-blue-ncs"></div>
+                                        <div class="org-chart-node">
+                                            <div class="org-chart-title">Chief Marketing Officer / VP Sales & Marketing</div>
+                                            <div class="org-chart-subtitle">Sales & Marketing (New)</div>
+                                        </div>
+                                        <div class="org-connector-v"></div>
+                                        <div class="org-level flex-wrap justify-center relative pt-8">
+                                            <div class="absolute top-0 left-0 right-0 h-[2px] bg-blue-ncs" style="transform: translateY(-10px);"></div>
+                                            <div class="org-branch flex flex-col items-center mx-2 relative pt-8">
+                                                <div class="absolute top-0 w-[2px] h-8 bg-blue-ncs"></div>
+                                                <div class="org-chart-node">
+                                                    <div class="org-chart-title">Sales Managers / BDMs</div>
+                                                    <div class="org-chart-subtitle">(Multiple)</div>
+                                                </div>
+                                            </div>
+                                            <div class="org-branch flex flex-col items-center mx-2 relative pt-8">
+                                                <div class="absolute top-0 w-[2px] h-8 bg-blue-ncs"></div>
+                                                <div class="org-chart-node">
+                                                    <div class="org-chart-title">Marketing & Social Media Specialists</div>
+                                                    <div class="org-chart-subtitle">(Multiple)</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="org-branch flex flex-col items-center mx-2 relative pt-8">
+                                        <div class="absolute top-0 w-[2px] h-8 bg-blue-ncs"></div>
+                                        <div class="org-chart-node">
+                                            <div class="org-chart-title">Regional Branch Managers</div>
+                                            <div class="org-chart-subtitle">(Multiple)</div>
+                                        </div>
+                                        <div class="org-connector-v"></div>
+                                        <div class="org-chart-node">
+                                            <div class="org-chart-title">Account Managers</div>
+                                            <div class="org-chart-subtitle">(11 Total, split across RBMs)</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="chart-context mt-6">This chart outlines the comprehensive organizational structure for Regis Staffing Group at $50M revenue, featuring a Chief Operating Officer (COO) to oversee expanded operations, a dedicated Sales & Marketing division, and multiple Regional Branch Managers to manage significant expansion across all functions.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-midnight-blue text-white text-center py-8 px-4">
+        <p class="mb-2">&copy; Regis Staffing Group. All Rights Reserved.</p>
+        <p class="text-sm text-gray-400">Driving the Future of Hospitality Staffing with Excellence and Innovation.</p>
+    </footer>
+
+    <script>
+        const chartColors = {
+            coral: '#FF6B6B',
+            sunglow: '#FFD166',
+            caribbeanGreen: '#06D6A0',
+            blueNCS: '#118AB2',
+            midnightBlue: '#073B4C',
+            lightGray: '#E2E8F0', 
+            mediumGray: '#A0AEC0', 
+        };
+
+        function processLabels(labels) {
+            const maxLength = 16;
+            return labels.map(label => {
+                if (typeof label === 'string' && label.length > maxLength) {
+                    const words = label.split(' ');
+                    const newLabel = [];
+                    let currentLine = '';
+                    words.forEach(word => {
+                        if ((currentLine + word).length > maxLength) {
+                            newLabel.push(currentLine.trim());
+                            currentLine = word + ' ';
+                        } else {
+                            currentLine += word + ' ';
+                        }
+                    });
+                    newLabel.push(currentLine.trim());
+                    return newLabel;
+                }
+                return label;
+            });
+        }
+
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            }
+            return label;
+        };
+
+        const commonChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    labels: {
+                        color: chartColors.midnightBlue,
+                        font: { size: 12 }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        title: tooltipTitleCallback
+                    },
+                    backgroundColor: 'rgba(0,0,0,0.7)',
+                    titleFont: { size: 14, weight: 'bold' },
+                    bodyFont: { size: 12 },
+                    padding: 10,
+                    cornerRadius: 4
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: { color: chartColors.midnightBlue, font: {size: 10} },
+                    grid: { color: chartColors.lightGray }
+                },
+                x: {
+                    ticks: { color: chartColors.midnightBlue, font: {size: 10} },
+                    grid: { display: false }
+                }
+            }
+        };
+
+        const globalMarketCtx = document.getElementById('globalMarketChart')?.getContext('2d');
+        if (globalMarketCtx) {
+            new Chart(globalMarketCtx, {
+                type: 'line',
+                data: {
+                    labels: ['2022', '2025', '2028', '2032'],
+                    datasets: [{
+                        label: 'Global Hospitality Staffing Market Value ($B)',
+                        data: [971.3, 1185.9, 1500, 1886.6], 
+                        borderColor: chartColors.coral,
+                        backgroundColor: 'rgba(255, 107, 107, 0.2)', 
+                        fill: true,
+                        tension: 0.3
+                    }]
+                },
+                options: commonChartOptions
+            });
+        }
+
+        const specializedSectorsCtx = document.getElementById('specializedSectorsChart')?.getContext('2d');
+        if (specializedSectorsCtx) {
+            new Chart(specializedSectorsCtx, {
+                type: 'bar',
+                data: {
+                    labels: processLabels(['Event Staffing', 'Hotel Staffing', 'Janitorial Staffing', 'AI Staffing']),
+                    datasets: [{
+                        label: 'Projected CAGR (%)',
+                        data: [11.06, 7.0, 4.5, 11.3].sort((a,b)=>b-a), 
+                        backgroundColor: [
+                            chartColors.caribbeanGreen,
+                            chartColors.blueNCS,
+                            chartColors.sunglow,
+                            chartColors.coral
+                        ],
+                        borderColor: '#ffffff',
+                        borderWidth: 1
+                    }]
+                },
+                options: { ...commonChartOptions, indexAxis: 'y', scales: {...commonChartOptions.scales, x: {...commonChartOptions.scales.x, grid: {color: chartColors.lightGray}}, y: {...commonChartOptions.scales.y, grid: {display: false}} } }
+            });
+        }
+
+        const staffGrowth25MCtx = document.getElementById('staffGrowth25MChart')?.getContext('2d');
+        if (staffGrowth25MCtx) {
+            new Chart(staffGrowth25MCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Current ($17M)', 'Projected ($25M)'],
+                    datasets: [{
+                        label: 'Total Internal Staff',
+                        data: [13, 23], 
+                        backgroundColor: [chartColors.mediumGray, chartColors.blueNCS],
+                    }]
+                },
+                options: commonChartOptions
+            });
+        }
+
+        const staffGrowth50MCtx = document.getElementById('staffGrowth50MChart')?.getContext('2d');
+        if (staffGrowth50MCtx) {
+            new Chart(staffGrowth50MCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Current ($17M)', 'Projected ($25M)', 'Projected ($50M)'],
+                    datasets: [{
+                        label: 'Total Internal Staff (FTEs)',
+                        data: [13, 23, 41], 
+                        backgroundColor: [chartColors.mediumGray, chartColors.blueNCS, chartColors.coral],
+                    }]
+                },
+                options: commonChartOptions
+            });
+        }
+
+    </script>
+</body>
+</html>
